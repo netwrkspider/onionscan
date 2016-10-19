@@ -66,6 +66,8 @@ type OnionScanReport struct {
 
 	NextAction string `json:"lastAction"`
 	TimedOut   bool
+	AnonymityReport    *AnonymityReport    `json:"identifierReport"`
+	SimpleReport    *SimpleReport   `json:"simpleReport"`
 }
 
 func LoadReportFromFile(filename string) (OnionScanReport, error) {

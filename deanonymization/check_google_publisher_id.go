@@ -17,6 +17,7 @@ func ExtractGooglePublisherID(osreport *report.OnionScanReport, anonreport *repo
 			for _, result := range foundGPID {
 				// Add it to analytics ids as it is essentially a tracking metric
 				anonreport.AnalyticsIDs = append(anonreport.AnalyticsIDs, result)
+				osc.Database.InsertRelationship(osreport.HiddenService, "snapshot", result)
 			}
 		}
 	}

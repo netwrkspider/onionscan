@@ -14,6 +14,7 @@ func MailtoScan(osreport *report.OnionScanReport, anonreport *report.AnonymityRe
 			for _, anchor := range crawlRecord.Page.Anchors {
 				if strings.HasPrefix(anchor.Target, "mailto:") {
 					anonreport.EmailAddresses = append(anonreport.EmailAddresses, anchor.Target[7:])
+					osc.Database.InsertRelationship(osreport.HiddenService, "snapshot", anchor.Target[7:])
 				}
 			}
 		}

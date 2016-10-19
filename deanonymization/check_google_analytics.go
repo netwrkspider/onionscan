@@ -16,6 +16,7 @@ func ExtractGoogleAnalyticsID(osreport *report.OnionScanReport, anonreport *repo
 
 			for _, result := range foundGA {
 				anonreport.AnalyticsIDs = append(anonreport.AnalyticsIDs, result)
+				osc.Database.InsertRelationship(osreport.HiddenService, "snapshot", result)
 			}
 		}
 	}

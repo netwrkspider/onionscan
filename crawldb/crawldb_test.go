@@ -21,6 +21,7 @@ func TestCrawlDB(t *testing.T) {
 		t.Errorf("Crawl record was not stored in the database!")
 	}
 
+	// Consistency
 	time.Sleep(time.Second * 1)
 	result, _ := db.HasCrawlRecord("https://example.onion", time.Second*-5)
 
@@ -49,6 +50,8 @@ func TestRelationship(t *testing.T) {
 		t.Errorf("Relationship record was not stored in the database!")
 	}
 
+	// Consistency
+	time.Sleep(time.Second * 1)
 	result, _ := db.GetOnionsWithIdentifier("12:23:32:DE:AD:BE:EF")
 
 	if result == nil {
@@ -59,10 +62,10 @@ func TestRelationship(t *testing.T) {
 		t.Errorf("Relationships returned %d results, should return 2", len(result))
 	}
 
-	// DB could return results out of order.
-	if result[0] == "example.onion" && result[1] == "example2.onion" {
+	// DB could return results in any order.
+	if result[0].Onion == "example.onion" && result[1].Onion == "example2.onion" {
 		// OK
-	} else if result[1] == "example.onion" && result[2] == "example2.onion" {
+	} else if result[1].Onion == "example.onion" && result[2].Onion == "example2.onion" {
 		// OK
 	} else {
 		t.Errorf("Relationships returned wrong onions %v", result)

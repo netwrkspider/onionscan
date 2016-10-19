@@ -93,6 +93,7 @@ func ExtractBitcoinAddress(osreport *report.OnionScanReport, anonreport *report.
 			for _, result := range foundBCID {
 				if ValidA58([]byte(result)) {
 					anonreport.BitcoinAddresses = append(anonreport.BitcoinAddresses, result)
+					osc.Database.InsertRelationship(osreport.HiddenService, "snapshot", result)
 				}
 			}
 		}
